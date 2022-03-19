@@ -5,6 +5,8 @@ import PropTypes from 'prop-types'
 import EmptyLayout from '../components/layout/empty'
 import '../styles/globals.css'
 import { theme } from '../utils/theme'
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const clientSideEmotionCache = createEmotionCache()
 

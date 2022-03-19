@@ -8,14 +8,11 @@ export let theme = createTheme({
             },
         },
     },
+
     typography: {
         fontFamily: 'Inter, sans-serif',
-        color: "#fff"
     },
-    palette: {
-        mode: "dark",
-    }
+
 })
-console.log(theme)
 
 theme = responsiveFontSizes(theme)

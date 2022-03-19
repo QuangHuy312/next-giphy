@@ -1,54 +1,68 @@
-import LOGO from "@/assets/trending.svg";
+import LOGO from "@/assets/artists.svg";
+import LOGO_HOVER from "@/assets/hoverArtists.png";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import CopyAllIcon from "@mui/icons-material/CopyAll";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
 import clsx from "clsx";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Slider from "react-slick";
-
-export default function Trending({ data }) {
+export default function Artists({ data }) {
   const useStyles = makeStyles(() => ({
     content: {
       position: "relative",
-      padding: "0px 3px",
+      padding: "0px 5px",
       "&:hover": {
-        "& $avatar_user": {
-          width: 30,
-          transition: "all 0.5s",
-          cursor: "pointer",
-        },
-        "& $icon_copy": {
-          width: 20,
+        opacity: 0.7,
+        "& $icon_hover": {
+          width: 50,
           transition: "all 0.5s",
           cursor: "pointer",
         },
       },
     },
     img_gif: {
-      height: 130,
+      height: 200,
       borderRadius: 4,
       cursor: "pointer",
       width: "100%",
     },
     avatar_user: {
-      width: 0,
       height: 30,
       position: "absolute",
-      left: 10,
-      bottom: 10,
+      left: 15,
+      bottom: 20,
       zIndex: 10,
+      display: "flex",
+      "& >img": {
+        width: 35,
+        height: 35,
+        objectFit: "cover",
+      },
     },
 
-    icon_copy: {
+    info_user: {
+      marginLeft: 6,
+      "& >h6": {
+        fontWeight: 600,
+        fontSize: 14,
+      },
+      "& >p": {
+        fontSize: 12,
+        padding: 0,
+        display: "flex",
+        alignItems: "center",
+      },
+    },
+    icon_hover: {
       width: 0,
       height: 30,
       position: "absolute",
-      top: 10,
-      right: 10,
+      top: 0,
+      right: 0,
       zIndex: 10,
       "&:hover": {
         transform: "scale(1.3)",
@@ -74,29 +88,7 @@ export default function Trending({ data }) {
         transition: "color 0.3s ease-in-out",
       },
     },
-    notify: {
-      position: "fixed",
-      overflow: "hidden",
-      zIndex: "99",
-      height: open ? "50px" : "0px",
-      right: "0px",
-      left: "0px",
-      top: " 0px",
-      backgroundColor: "rgb(0, 255, 153)",
-      width: "100%",
-      margin: "0 auto",
-      textAlign: "center",
-      transition: "height 0.3s ease-in-out",
-      "& >h6": {
-        height: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        fontSize: 16,
-      },
-    },
   }));
-  const [open, setOpen] = useState(false);
   function SampleNextArrow(props) {
     const { className, style, onClick } = props;
     return (
@@ -117,11 +109,11 @@ export default function Trending({ data }) {
       />
     );
   }
-  const classes = useStyles({ open });
+  const classes = useStyles();
   const settings = {
     infinite: true,
-    slidesToShow: 6,
-    slidesToScroll: 6,
+    slidesToShow: 3,
+    slidesToScroll: 3,
     swipeToSlide: true,
     autoplaySpeed: 1000,
     pauseOnHover: true,
@@ -129,17 +121,6 @@ export default function Trending({ data }) {
     prevArrow: <SamplePrevArrow />,
   };
 
-  const handleClickCopy = (url) => {
-    setOpen(true);
-    navigator.clipboard.writeText(url);
-  };
-  useEffect(() => {
-    if (open) {
-      setTimeout(() => {
-        setOpen(false);
-      }, 2000);
-    }
-  }, [open]);
   return (
     <Box mt={2}>
       <Box display="flex" justifyContent="space-between">
@@ -148,14 +129,14 @@ export default function Trending({ data }) {
             <Image layout="responsive" src={LOGO} alt="logo" />
           </Box>
           <Typography variant="h5" style={{ fontSize: 23, fontWeight: 700 }}>
-            Trending
+            Artists
           </Typography>
         </Box>
         <Typography
           variant="subtitle2"
           style={{ color: "rgb(166, 166, 166)", cursor: "pointer" }}
         >
-          All The GIFs
+          All GIPHY Artists
         </Typography>
       </Box>
 
@@ -168,24 +149,36 @@ export default function Trending({ data }) {
                 alt="logo"
                 className={classes.img_gif}
               />
-              {gif.user?.avatar_url && (
-                <img
-                  src={gif.user?.avatar_url}
-                  alt="avatar"
-                  className={classes.avatar_user}
-                />
-              )}
-              <CopyAllIcon
-                className={classes.icon_copy}
-                onClick={() => handleClickCopy(gif.images.fixed_height.url)}
-              />
+
+              <Box className={classes.icon_hover}>
+                <Image layout="responsive" src={LOGO_HOVER} alt="avatar" />
+              </Box>
+              <Box className={classes.avatar_user}>
+                {gif.user?.avatar_url && (
+                  <img src={gif.user?.avatar_url} alt="avatar_user" />
+                )}
+                <Box className={classes.info_user}>
+                  <Typography variant="subtitle2">
+                    {gif.user?.display_name}
+                  </Typography>
+                  <Typography variant="body2">
+                    @{gif.username}
+                    {gif.user?.is_verified && (
+                      <CheckCircleIcon
+                        style={{
+                          //   backgroundColor: "blue",
+                          fontSize: 15,
+                          color: "blue",
+                          marginLeft: 5,
+                        }}
+                      />
+                    )}
+                  </Typography>
+                </Box>
+              </Box>
             </Box>
           ))}
         </Slider>
-      </Box>
-
-      <Box className={classes.notify}>
-        <Typography variant="subtitle2">Link copied to clipboard!</Typography>
       </Box>
     </Box>
   );
