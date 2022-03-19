@@ -7,8 +7,8 @@ export default class MyDocument extends Document {
     render() {
         return (
             <Html lang="en">
+                <title>GIPHY TRENDING</title>
                 <Head>
-                    <title>GIPHY TRENDING</title>
                     <link rel="icon" href="https://giphy.com/static/img/favicon.png" />
                     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet"></link>
 
