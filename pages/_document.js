@@ -20,7 +20,6 @@ export default class MyDocument extends Document {
                 <body style={{ backgroundColor: "rgb(18, 18, 18)", color: "#fff" }}>
                     <Main />
                     <NextScript />
-
                 </body>
             </Html>
         );

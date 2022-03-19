@@ -152,13 +152,13 @@ export default function Stories({ dataStories }) {
     setData(dataStories);
   }, [dataStories]);
 
-  const getRandom = useCallback(() => {
+  const getRandom = () => {
     const randomIdx = Math.floor(Math.random() * data.length);
     const randomGiphy = data[randomIdx];
     if (randomGiphy) {
       return randomGiphy;
     }
-  }, [renderItem, data]);
+  };
 
   const gridConfig = [
     ["first_grid", 3],
