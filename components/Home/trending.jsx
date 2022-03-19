@@ -18,7 +18,7 @@ export default function Trending({ data }) {
       "&:hover": {
         "& $avatar_user": {
           width: 30,
-          transition: "all 0.5s",
+          transition: "all 0.3s ease-in-out",
           cursor: "pointer",
         },
         "& $icon_copy": {
@@ -163,17 +163,21 @@ export default function Trending({ data }) {
         <Slider {...settings}>
           {data.map((gif) => (
             <Box key={gif.id} className={classes.content}>
-              <img
+              <Image
                 src={gif.images.fixed_height.url}
                 alt="logo"
+                height={200}
+                width={200}
                 className={classes.img_gif}
               />
               {gif.user?.avatar_url && (
-                <img
-                  src={gif.user?.avatar_url}
-                  alt="avatar"
-                  className={classes.avatar_user}
-                />
+                <Box className={classes.avatar_user}>
+                  <Image
+                    src={gif.user?.avatar_url}
+                    alt="avatar"
+                    layout="fill"
+                  />
+                </Box>
               )}
               <CopyAllIcon
                 className={classes.icon_copy}

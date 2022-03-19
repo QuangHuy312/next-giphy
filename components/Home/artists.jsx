@@ -144,10 +144,12 @@ export default function Artists({ data }) {
         <Slider {...settings}>
           {data.map((gif) => (
             <Box key={gif.id} className={classes.content}>
-              <img
+              <Image
                 src={gif.images.fixed_height.url}
                 alt="logo"
                 className={classes.img_gif}
+                width={400}
+                height={250}
               />
 
               <Box className={classes.icon_hover}>
@@ -155,7 +157,12 @@ export default function Artists({ data }) {
               </Box>
               <Box className={classes.avatar_user}>
                 {gif.user?.avatar_url && (
-                  <img src={gif.user?.avatar_url} alt="avatar_user" />
+                  <Image
+                    src={gif.user.avatar_url}
+                    alt="avatar_user"
+                    width={35}
+                    height={35}
+                  />
                 )}
                 <Box className={classes.info_user}>
                   <Typography variant="subtitle2">
@@ -166,7 +173,6 @@ export default function Artists({ data }) {
                     {gif.user?.is_verified && (
                       <CheckCircleIcon
                         style={{
-                          //   backgroundColor: "blue",
                           fontSize: 15,
                           color: "blue",
                           marginLeft: 5,

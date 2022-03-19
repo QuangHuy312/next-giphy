@@ -1,9 +1,9 @@
 import BANNER from "@/assets/banner.gif";
 import LOADING from "@/assets/loading.gif";
-import Artists from "@/components/Home/artists";
-import Stories from "@/components/Home/stories";
-import Trending from "@/components/Home/trending";
-import Videos from "@/components/Home/video";
+// import Artists from "@/components/Home/artists";
+// import Stories from "@/components/Home/stories";
+// import Trending from "@/components/Home/trending";
+// import Videos from "@/components/Home/video";
 import { API_KEY } from "@/constants/config";
 import { Box, Container } from "@mui/material";
 import { makeStyles } from "@mui/styles";
@@ -13,18 +13,18 @@ import Image from "next/image";
 import React, { Suspense, useEffect, useState } from "react";
 import MainLayout from "../components/layout/main";
 
-// const Trending = dynamic(() => import("../components/Home/trending"), {
-//   suspense: true,
-// });
-// const Stories = dynamic(() => import("../components/Home/stories"), {
-//   suspense: true,
-// });
-// const Artists = dynamic(() => import("../components/Home/artists"), {
-//   suspense: true,
-// });
-// const Videos = dynamic(() => import("../components/Home/video"), {
-//   suspense: true,
-// });
+const Trending = dynamic(() => import("../components/Home/trending"), {
+  ssr: false,
+});
+const Stories = dynamic(() => import("../components/Home/stories"), {
+  ssr: false,
+});
+const Artists = dynamic(() => import("../components/Home/artists"), {
+  ssr: false,
+});
+const Videos = dynamic(() => import("../components/Home/video"), {
+  ssr: false,
+});
 
 const Home = () => {
   const useStyles = makeStyles(() => ({

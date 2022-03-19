@@ -5,6 +5,7 @@ import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
 import UtilityApi from "apiClient/utilityApi";
 import Image from "next/image";
+import LOADING from "@/assets/loading.gif";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
 export default function Stories({ dataStories }) {
@@ -53,22 +54,22 @@ export default function Stories({ dataStories }) {
       position: "relative",
       "&:hover": {
         "& $content_avatar": {
-          "& >img": {
+          "& >span >img": {
             transform: "scale(1.2)",
             transition: "transform 0.3s linear",
           },
         },
       },
-      "& >img": {
-        width: "100%",
-        objectFit: "cover",
-        borderRadius: 6,
-        height: "100%",
-        cursor: "pointer",
-        "&:hover": {
-          transform: "scale(1.2)",
-          transition: "transform 0.3s linear",
-        },
+    },
+    image: {
+      width: "100%",
+      objectFit: "cover",
+      borderRadius: 6,
+      height: "100%",
+      cursor: "pointer",
+      "&:hover": {
+        transform: "scale(1.2)",
+        transition: "transform 0.3s linear",
       },
     },
     title: {
@@ -80,16 +81,12 @@ export default function Stories({ dataStories }) {
       zIndex: 99,
     },
     content_avatar: {
+      width: 50,
+      height: 50,
       position: "absolute",
       top: 10,
       left: 10,
       zIndex: 99,
-      "& >img": {
-        width: 50,
-        height: 50,
-        objectFit: "cover",
-        zIndex: 99,
-      },
     },
     line_purple: {
       background: "rgb(150 62 214)",
@@ -183,10 +180,16 @@ export default function Stories({ dataStories }) {
           </Typography>
           {item?.user?.avatar_url && (
             <Box className={classes.content_avatar}>
-              <img src={item?.user?.avatar_url} alt="avatar" />
+              <Image src={item?.user?.avatar_url} alt="avatar" layout="fill" />
             </Box>
           )}
-          <img src={item?.images?.fixed_height.url} alt="gif" />
+          <Box className={classes.image}>
+            <Image
+              src={item?.images?.fixed_height.url || LOADING}
+              alt="gif"
+              layout="fill"
+            />
+          </Box>
         </Box>
         <Box>
           <Box className={classColor}></Box>

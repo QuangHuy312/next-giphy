@@ -5,17 +5,16 @@ import { Box } from "@mui/system";
 import Image from "next/image";
 import React from "react";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import LOADING from "@/assets/loading.gif";
 
 export default function Videos({ data }) {
   const useStyles = makeStyles(() => ({
     img_gif: {
-      height: 200,
       borderRadius: 4,
       cursor: "pointer",
-      width: "100%",
       objectFit: "cover",
     },
-    ingoUser: {
+    infoUser: {
       zIndex: 10,
       display: "flex",
       alignItems: "center",
@@ -62,11 +61,12 @@ export default function Videos({ data }) {
 
       <Grid container mt={1} spacing={2}>
         <Grid item xs={8}>
-          <img
-            src={data[0]?.images.fixed_height.url}
-            className={classes.img_gif}
+          <Image
+            src={data[0]?.images.fixed_height.url || LOADING}
             alt="clip"
-            style={{ height: 490 }}
+            width={700}
+            height={480}
+            className={classes.img_gif}
           />
           <Typography
             variant="subtitle2"
@@ -74,9 +74,14 @@ export default function Videos({ data }) {
           >
             {data[0]?.title}
           </Typography>
-          <Box className={classes.ingoUser}>
+          <Box className={classes.infoUser}>
             {data[0]?.user?.avatar_url && (
-              <img src={data[0]?.user?.avatar_url} alt="ingoUser" />
+              <Image
+                src={data[0]?.user?.avatar_url}
+                alt="infoUser"
+                width={25}
+                height={25}
+              />
             )}
             <Box className={classes.title}>
               <Typography variant="subtitle2">
@@ -95,10 +100,12 @@ export default function Videos({ data }) {
           </Box>
         </Grid>
         <Grid item xs={4}>
-          <img
-            src={data[1]?.images.fixed_height.url}
-            className={classes.img_gif}
+          <Image
+            src={data[1]?.images.fixed_height.url || LOADING}
             alt="clip"
+            height={290}
+            width={500}
+            className={classes.img_gif}
           />
           <Typography
             variant="subtitle2"
@@ -106,9 +113,14 @@ export default function Videos({ data }) {
           >
             {data[1]?.title}
           </Typography>
-          <Box className={classes.ingoUser} mb={3}>
+          <Box className={classes.infoUser} mb={3}>
             {data[1]?.user?.avatar_url && (
-              <img src={data[1]?.user?.avatar_url} alt="ingoUser" />
+              <Image
+                src={data[1]?.user?.avatar_url}
+                alt="infoUser"
+                width={25}
+                height={25}
+              />
             )}
             <Box className={classes.title}>
               <Typography variant="subtitle2">
@@ -126,10 +138,12 @@ export default function Videos({ data }) {
               </Typography>
             </Box>
           </Box>
-          <img
-            src={data[2]?.images.fixed_height.url}
-            className={classes.img_gif}
+          <Image
+            src={data[2]?.images.fixed_height.url || LOADING}
             alt="clip"
+            height={290}
+            width={500}
+            className={classes.img_gif}
           />
           <Typography
             variant="subtitle2"
@@ -137,9 +151,14 @@ export default function Videos({ data }) {
           >
             {data[2]?.title}
           </Typography>
-          <Box className={classes.ingoUser}>
+          <Box className={classes.infoUser}>
             {data[2]?.user?.avatar_url && (
-              <img src={data[2]?.user?.avatar_url} alt="ingoUser" />
+              <Image
+                src={data[2]?.user?.avatar_url}
+                alt="infoUser"
+                width={25}
+                height={25}
+              />
             )}
             <Box className={classes.title}>
               <Typography variant="subtitle2">
