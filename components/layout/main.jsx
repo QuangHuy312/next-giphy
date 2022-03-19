@@ -1,9 +1,10 @@
 import React from "react";
-import dynamic from "next/dynamic";
+import Header from "../common/header";
+// import dynamic from "next/dynamic";
 
-const Header = dynamic(() => import("../common/header"), {
-  ssr: false,
-});
+// const Header = dynamic(() => import("../common/header"), {
+//   ssr: false,
+// });
 
 const MainLayout = ({ children }) => {
   return (
