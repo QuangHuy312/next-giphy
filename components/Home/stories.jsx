@@ -234,7 +234,7 @@ export default function Stories({ dataStories }) {
     return () => {
       window.removeEventListener("scroll", handleFetchData);
     };
-  }, [loading]);
+  }, [loading, fetchMoreData]);
 
   return (
     <Box mt={4} ref={ref} position="relative" mb={2}>
