@@ -142,10 +142,10 @@ export default function Artists({ data }) {
 
       <Box mt={2}>
         <Slider {...settings}>
-          {data.map((gif) => (
+          {data?.map((gif) => (
             <Box key={gif.id} className={classes.content}>
               <Image
-                src={gif.images.fixed_height.url}
+                src={gif.url}
                 alt="logo"
                 className={classes.img_gif}
                 width={400}

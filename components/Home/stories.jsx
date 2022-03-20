@@ -5,8 +5,7 @@ import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
 import UtilityApi from "apiClient/utilityApi";
 import Image from "next/image";
-import LOADING from "@/assets/loading.gif";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 export default function Stories({ dataStories }) {
   const useStyles = makeStyles(() => ({
@@ -184,11 +183,7 @@ export default function Stories({ dataStories }) {
             </Box>
           )}
           <Box className={classes.image}>
-            <Image
-              src={item?.images?.fixed_height.url || LOADING}
-              alt="gif"
-              layout="fill"
-            />
+            {item?.url && <Image src={item?.url} alt="gif" layout="fill" />}
           </Box>
         </Box>
         <Box>
@@ -252,8 +247,8 @@ export default function Stories({ dataStories }) {
         </Typography>
       </Box>
 
-      {Array.from(new Array(renderItem)).map((item) => (
-        <Box>
+      {Array.from(new Array(renderItem)).map((item, idx) => (
+        <Box key={idx}>
           {gridConfig.map(([layout, numberTitle], index) => {
             const title = CreateTitle(numberTitle);
             const classname =

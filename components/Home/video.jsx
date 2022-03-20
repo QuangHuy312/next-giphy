@@ -1,4 +1,4 @@
-import LOGO from "@/assets/artists.svg";
+import LOGO from "@/assets/clips.svg";
 import { Grid, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
@@ -62,7 +62,7 @@ export default function Videos({ data }) {
       <Grid container mt={1} spacing={2}>
         <Grid item xs={8}>
           <Image
-            src={data[0]?.images.fixed_height.url || LOADING}
+            src={data[0]?.url || LOADING}
             alt="clip"
             width={700}
             height={480}
@@ -101,7 +101,7 @@ export default function Videos({ data }) {
         </Grid>
         <Grid item xs={4}>
           <Image
-            src={data[1]?.images.fixed_height.url || LOADING}
+            src={data[1]?.url || LOADING}
             alt="clip"
             height={290}
             width={500}
@@ -139,7 +139,7 @@ export default function Videos({ data }) {
             </Box>
           </Box>
           <Image
-            src={data[2]?.images.fixed_height.url || LOADING}
+            src={data[2]?.url || LOADING}
             alt="clip"
             height={290}
             width={500}

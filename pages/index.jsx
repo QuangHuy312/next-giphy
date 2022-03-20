@@ -26,7 +26,12 @@ import MainLayout from "../components/layout/main";
 //   ssr: false,
 // });
 
-const Home = () => {
+const Home = ({
+  dataTrending,
+  dataArtists,
+  dataStories,
+  dataVideoTrending,
+}) => {
   const useStyles = makeStyles(() => ({
     container: {
       padding: "0px 80px",
@@ -44,10 +49,10 @@ const Home = () => {
     },
   }));
   const classes = useStyles();
-  const [dataTrending, setDataTrending] = useState([]);
-  const [dataArtists, setDataArtists] = useState([]);
-  const [dataVideoTrending, setDataVideoTrending] = useState([]);
-  const [dataStories, setDataStories] = useState([]);
+  // const [dataTrending, setDataTrending] = useState([]);
+  // const [dataArtists, setDataArtists] = useState([]);
+  // const [dataVideoTrending, setDataVideoTrending] = useState([]);
+  // const [dataStories, setDataStories] = useState([]);
 
   const [loadingTrending, setLoadingTrending] = useState(false);
   const [loadingArtists, setLoadingArtists] = useState(false);
@@ -55,80 +60,81 @@ const Home = () => {
   const [loadingStories, setLoadingStories] = useState(false);
 
   //   Get Gifs Trending
-  useEffect(() => {
-    (async () => {
-      setLoadingTrending(true);
-      try {
-        const res = await UtilityApi.trendingPoint({
-          api_key: API_KEY,
-          limit: 50,
-        });
-        setDataTrending(res);
-        setLoadingTrending(false);
-      } catch (err) {
-        console.log(err);
-        setLoadingTrending(false);
-      }
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     setLoadingTrending(true);
+  //     try {
+  //       const res = await UtilityApi.trendingPoint({
+  //         api_key: API_KEY,
+  //         limit: 50,
+  //       });
+  //       setDataTrending(res);
+  //       setLoadingTrending(false);
+  //     } catch (err) {
+  //       console.log(err);
+  //       setLoadingTrending(false);
+  //     }
+  //   })();
+  // }, []);
 
   //   Get artists
 
-  useEffect(() => {
-    (async () => {
-      setLoadingArtists(true);
-      try {
-        const res = await UtilityApi.searchPoint({
-          api_key: API_KEY,
-          q: "artists",
-          limit: 50,
-        });
-        setLoadingArtists(false);
-        setDataArtists(res);
-      } catch (err) {
-        setLoadingArtists(false);
-        console.log(err);
-      }
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     setLoadingArtists(true);
+  //     try {
+  //       const res = await UtilityApi.searchPoint({
+  //         api_key: API_KEY,
+  //         q: "artists",
+  //         limit: 50,
+  //       });
+  //       setLoadingArtists(false);
+  //       setDataArtists(res);
+  //     } catch (err) {
+  //       setLoadingArtists(false);
+  //       console.log(err);
+  //     }
+  //   })();
+  // }, []);
 
   //   Get video
-  useEffect(() => {
-    (async () => {
-      setLoadingVideos(true);
-      try {
-        const res = await UtilityApi.videoTrending({
-          api_key: API_KEY,
-          limit: 3,
-        });
-        setLoadingVideos(false);
-        setDataVideoTrending(res);
-      } catch (err) {
-        setLoadingVideos(false);
-        console.log(err);
-      }
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     setLoadingVideos(true);
+  //     try {
+  //       const res = await UtilityApi.videoTrending({
+  //         api_key: API_KEY,
+  //         limit: 3,
+  //       });
+  //       setLoadingVideos(false);
+  //       setDataVideoTrending(res);
+  //     } catch (err) {
+  //       setLoadingVideos(false);
+  //       console.log(err);
+  //     }
+  //   })();
+  // }, []);
 
   //   get stories
 
-  useEffect(() => {
-    (async () => {
-      setLoadingStories(true);
-      try {
-        const res = await UtilityApi.searchPoint({
-          api_key: API_KEY,
-          limit: 20,
-          q: "stories",
-        });
-        setDataStories(res);
-        setLoadingStories(false);
-      } catch (err) {
-        console.log(err);
-        setLoadingStories(false);
-      }
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     setLoadingStories(true);
+  //     try {
+  //       const res = await UtilityApi.searchPoint({
+  //         api_key: API_KEY,
+  //         limit: 20,
+  //         q: "stories",
+  //       });
+  //       setDataStories(res);
+  //       setLoadingStories(false);
+  //     } catch (err) {
+  //       console.log(err);
+  //       setLoadingStories(false);
+  //     }
+  //   })();
+  // }, []);
+  console.log(dataArtists);
 
   const loading =
     loadingArtists || loadingStories || loadingVideos || loadingTrending;
@@ -163,5 +169,49 @@ const Home = () => {
 };
 
 Home.Layout = MainLayout;
+
+export async function getStaticProps() {
+  const resDataTrending = await UtilityApi.trendingPoint({
+    api_key: API_KEY,
+    limit: 50,
+  });
+
+  const resDataArtists = await UtilityApi.searchPoint({
+    api_key: API_KEY,
+    q: "artists",
+    limit: 30,
+  });
+  const resVideo = await UtilityApi.videoTrending({
+    api_key: API_KEY,
+    limit: 3,
+  });
+  const resDataStories = await UtilityApi.searchPoint({
+    api_key: API_KEY,
+    limit: 20,
+    q: "stories",
+  });
+  return {
+    props: {
+      dataTrending: resDataTrending.map((item) => ({
+        id: item.id,
+        url: item?.images?.fixed_height?.url,
+        avatar_url: item?.user?.avatar_url || null,
+      })),
+      dataArtists: resDataArtists.map((item) => ({
+        id: item.id,
+        url: item?.images?.fixed_height?.url,
+        user: item?.user || null,
+      })),
+      dataVideoTrending: resVideo.map((item) => ({
+        url: item?.images?.fixed_height?.url,
+        user: item?.user || null,
+      })),
+      dataStories: resDataStories.map((item) => ({
+        url: item?.images?.fixed_height?.url,
+        user: item?.user || null,
+      })),
+    },
+  };
+}
 
 export default Home;

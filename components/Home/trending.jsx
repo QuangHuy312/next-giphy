@@ -164,24 +164,20 @@ export default function Trending({ data }) {
           {data.map((gif) => (
             <Box key={gif.id} className={classes.content}>
               <Image
-                src={gif.images.fixed_height.url}
+                src={gif.url}
                 alt="logo"
                 height={200}
                 width={200}
                 className={classes.img_gif}
               />
-              {gif.user?.avatar_url && (
+              {gif.avatar_url && (
                 <Box className={classes.avatar_user}>
-                  <Image
-                    src={gif.user?.avatar_url}
-                    alt="avatar"
-                    layout="fill"
-                  />
+                  <Image src={gif.avatar_url} alt="avatar" layout="fill" />
                 </Box>
               )}
               <CopyAllIcon
                 className={classes.icon_copy}
-                onClick={() => handleClickCopy(gif.images.fixed_height.url)}
+                onClick={() => handleClickCopy(gif.url)}
               />
             </Box>
           ))}

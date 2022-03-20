@@ -10,6 +10,7 @@ import UtilityApi from "apiClient/utilityApi";
 import clsx from "clsx";
 import { debounce } from "lodash";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 const Header = () => {
@@ -101,6 +102,7 @@ const Header = () => {
   const classes = useStyles();
   const [valueSearch, setValueSearch] = useState("");
   const [data, setData] = useState([]);
+  const router = useRouter();
 
   const handleSearchChange = debounce((e) => {
     const value = e?.target.value;
@@ -125,7 +127,12 @@ const Header = () => {
         alignItems="center"
         mt={2}
       >
-        <Box width="100px" objectFit="cover" mr={2}>
+        <Box
+          width="100px"
+          objectFit="cover"
+          mr={2}
+          style={{ cursor: "pointer" }}
+        >
           <Image
             src={LOGO}
             alt="logo"
@@ -133,6 +140,7 @@ const Header = () => {
             layout="responsive"
             width="50px"
             height="30px"
+            onClick={() => router.push("/")}
           />
         </Box>
         <Box component="nav" className={classes.menu}>
